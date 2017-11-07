@@ -12,11 +12,6 @@ const config = {
 // create LINE SDK client
 const client = new line.Client(config);
 
-var options = {
-        key: fs.readFileSync(ssl_server_key),
-        cert: fs.readFileSync(ssl_server_crt)
-};
-
 // create Express app
 // about Express itself: https://expressjs.com/
 const app = express();
