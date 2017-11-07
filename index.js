@@ -16,8 +16,6 @@ const client = new line.Client(config);
 // about Express itself: https://expressjs.com/
 const app = express();
 
-var server = https.createServer(options,app);
-
 // register a webhook handler with middleware
 // about the middleware, please refer to doc
 app.post('/webhook', line.middleware(config), (req, res) => {
