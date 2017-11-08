@@ -34,8 +34,32 @@ function handleEvent(event) {
   // create a echoing text message
   const echo = { type: 'text', text: event.message.text };
 
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
+  apiaiRequest.on('response', (response) => {
+    let responseText = response.result.fulfillment.speech;
+    // create a echoing text message
+    const reply = { type: 'text', text: responseText };
+    // use reply API
+    return client.replyMessage(event.replyToken, reply);
+  });
+
+  apiaiRequest.on('error', (error) => console.error(error));
+  apiaiRequest.end();
+
+}
+
+function getChatId(source) {
+  if (source.type === 'user') {
+    return source.userId;
+  }
+
+  if (source.type === 'group') {
+    return source.groupId;
+  }
+
+  if (source.type === 'room') {
+    return source.roomId;
+  }
+  return null;
 }
 
 // listen on port
